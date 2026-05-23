@@ -1,0 +1,122 @@
+import { fetchHtml } from '../_shared/crawl.js';
+import { parseListPage, parseDetailPage } from './parse.js';
+import { URLS, SYSTEM_URL } from './constants.js';
+
+const MAX_CACHE_AGE = 5 * 60 * 1000;
+
+async function fetchList(opts = {}) {
+  const useCache = opts.cache !== false;
+  const page = await fetchHtml(URLS.gblList, { useCache, maxCacheAgeMs: MAX_CACHE_AGE });
+  return parseListPage(page.html, URLS.gblList);
+}
+
+export async function extractMarketMetrics(opts = {}) {
+  try {
+    const useCache = opts.cache !== false;
+    const items = await fetchList(opts);
+
+    const cfg = items.find((i) => i.kind === 'config_notice' && /配置数量/.test(i.title));
+    const lotteryNotice = items.find((i) => i.kind === 'lottery_notice');
+    const result = items.find((i) => i.kind === 'result');
+
+    const detailsToParse = [cfg, lotteryNotice, result].filter(Boolean);
+    const detailMetrics = {};
+    for (const it of detailsToParse) {
+      try {
+        const page = await fetchHtml(it.url, { useCache });
+        const d = parseDetailPage(page.html, it.url);
+        detailMetrics[it.kind] = { ...d.metrics, title: d.title, url: it.url, date: it.date };
+      } catch {}
+    }
+
+    const cfgM = detailMetrics.config_notice || {};
+    const ln = detailMetrics.lottery_notice || {};
+    const totalAlloc = cfgM.totalAlloc ?? ln.totalAlloc ?? null;
+    const personalAlloc = cfgM.personalAlloc ?? ln.personalAlloc ?? null;
+    const unitAlloc = cfgM.unitAllocNum ?? ln.unitAllocNum ?? null;
+    const lotteryAlloc = cfgM.lotteryAlloc ?? ln.lotteryAlloc ?? null;
+    const biddingAlloc = cfgM.biddingAlloc ?? ln.biddingAlloc ?? null;
+
+    const data = {
+      city: 'shenzhen',
+      period: cfg?.period?.label || lotteryNotice?.period?.label || result?.period?.label || null,
+      source: SYSTEM_URL,
+      latestConfig: cfg ? { date: cfg.date, title: cfg.title, url: cfg.url } : null,
+      latestLottery: lotteryNotice ? { date: lotteryNotice.date, title: lotteryNotice.title, url: lotteryNotice.url } : null,
+      latestResult: result ? { date: result.date, title: result.title, url: result.url } : null,
+      alloc: { total: totalAlloc, personal: personalAlloc, unit: unitAlloc, lottery: lotteryAlloc, bidding: biddingAlloc },
+      details: detailMetrics,
+    };
+
+    const lines = [];
+    lines.push(`深圳小汽车摇号 ${data.period || '当期'} 形势播报`);
+    lines.push(`数据来源: ${SYSTEM_URL}`);
+    lines.push('');
+    if (cfg) {
+      lines.push(`【最新配置数量公告】${cfg.date}`);
+      lines.push(`  ${cfg.title}`);
+      lines.push(`  ${cfg.url}`);
+    }
+    if (lotteryNotice) {
+      lines.push('');
+      lines.push(`【最新摇号公告】${lotteryNotice.date}`);
+      lines.push(`  ${lotteryNotice.title}`);
+      lines.push(`  ${lotteryNotice.url}`);
+    }
+    if (result) {
+      lines.push('');
+      lines.push(`【最新摇号结果公告】${result.date}`);
+      lines.push(`  ${result.title}`);
+      lines.push(`  ${result.url}`);
+    }
+    if (totalAlloc || personalAlloc || unitAlloc || lotteryAlloc || biddingAlloc) {
+      lines.push('');
+      lines.push('【本期配置指标】');
+      if (totalAlloc) lines.push(`  总配置: ${fmt(totalAlloc)}`);
+      if (personalAlloc) lines.push(`  个人:   ${fmt(personalAlloc)}`);
+      if (unitAlloc) lines.push(`  单位:   ${fmt(unitAlloc)}`);
+      if (lotteryAlloc) lines.push(`  其中摇号: ${fmt(lotteryAlloc)}`);
+      if (biddingAlloc) lines.push(`  其中竞价: ${fmt(biddingAlloc)}`);
+    }
+    lines.push('');
+    lines.push('提示：2026 年 4-12 月阶梯摇号，每 24 次未中签升 1 阶梯');
+    lines.push('完整中签率/具体编码需查询单篇公告全文');
+    return { ok: true, data, lines };
+  } catch (err) {
+    return {
+      ok: false,
+      error: `深圳数据抓取失败: ${err.message}`,
+      lines: [`错误: ${err.message}`, '', `请直接访问 ${SYSTEM_URL}`],
+    };
+  }
+}
+
+export const watchTargets = {
+  result: {
+    desc: '深圳摇号结果',
+    async fetch(opts = {}) {
+      const items = await fetchList(opts);
+      return items.filter((i) => i.kind === 'result' || i.kind === 'config_notice' || i.kind === 'lottery_notice');
+    },
+  },
+  policy: {
+    desc: '深圳政策变化',
+    async fetch(opts = {}) {
+      const items = await fetchList(opts);
+      return items.filter((i) => i.kind === 'quota' || i.kind === 'faq' || i.kind === 'penalty');
+    },
+  },
+  window: {
+    desc: '深圳申请窗口/资格审核',
+    async fetch(opts = {}) {
+      const items = await fetchList(opts);
+      return items.filter((i) => i.kind === 'qualify_review' || i.kind === 'lottery_notice');
+    },
+  },
+};
+
+function fmt(n) {
+  if (n == null) return '未知';
+  if (typeof n === 'number') return n.toLocaleString('zh-CN');
+  return String(n);
+}

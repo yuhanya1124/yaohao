@@ -1,0 +1,34 @@
+# Changelog
+
+## 1.0.0 — 2026-05-23
+
+首次发布。
+
+### 新增
+
+- **4 城支持**：北京、广州、深圳、杭州
+- **公开数据命令**（无需登录）：
+  - `eligibility` 资格自检（交互式问答）
+  - `calendar` 关键日历（窗口期 / 摇号日，月度或半年节奏）
+  - `market` 形势播报（申请数 / 配置数 / 中签率）
+  - `watch result / policy / window` 公告订阅 + 通知推送
+- **脚手架命令**：`init` / `set` / `notify` / `cron`
+- **AI Agent Skill**：`skills/yaohao/SKILL.md` 触发关键词覆盖 4 城
+- **PDF 解析**：北京中签率字段（pdfjs-dist）
+- **SSL 兼容**：深圳证书链 + 杭州 legacy renegotiation 已绕过
+- **通知渠道**：兼容 Apprise URL（Bark / 飞书 / 钉钉 / 企微 / Telegram / Slack）
+
+### 边界
+
+v1 不做的命令（不持有用户密码 = 无合规风险）：
+
+- `status` `family` `result` `history` `waitlist`
+- `watch renewal / expiry / ranking`
+
+如需查询本人摇号状态，请直接登录各城官网。
+
+### 致谢
+
+- [`fichas/cross_beijing_cli`](https://github.com/fichas/cross_beijing_cli) — 脚手架来源
+- [`JimmyLiang-lzm/BJJTW_Get`](https://github.com/JimmyLiang-lzm/BJJTW_Get) — 北京接口参考
+- [`sml2h3/ddddocr`](https://github.com/sml2h3/ddddocr) — OCR 模型（未使用，预留）

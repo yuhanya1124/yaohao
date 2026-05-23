@@ -1,0 +1,55 @@
+{
+  "name": "yaohao",
+  "version": "1.0.0",
+  "description": "国内城市车牌摇号 CLI（北京 / 广州 / 深圳 / 杭州）- 资格自检、关键日历、形势播报、开奖订阅、政策提醒。AI Agent 友好。",
+  "type": "module",
+  "bin": {
+    "yaohao": "bin/yaohao.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "models/",
+    "skills/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "摇号",
+    "小客车",
+    "指标",
+    "车牌",
+    "新能源",
+    "家庭摇号",
+    "北京",
+    "广州",
+    "深圳",
+    "杭州",
+    "beijing",
+    "guangzhou",
+    "shenzhen",
+    "hangzhou",
+    "lottery",
+    "cli",
+    "agent"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/GuangyuZhan/yaohao#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuangyuZhan/yaohao.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GuangyuZhan/yaohao/issues"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.3.2",
+    "commander": "^14.0.3",
+    "jimp": "^1.6.0",
+    "onnxruntime-node": "^1.24.3",
+    "pdfjs-dist": "^4.10.38"
+  }
+}

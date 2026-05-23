@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Smoke test - help
+        run: node bin/yaohao.js --help
+
+      - name: Smoke test - calendar 4 cities (no network needed)
+        run: |
+          node bin/yaohao.js calendar --city beijing
+          node bin/yaohao.js calendar --city guangzhou
+          node bin/yaohao.js calendar --city shenzhen
+          node bin/yaohao.js calendar --city hangzhou
+
+      - name: Smoke test - unknown city should error
+        run: |
+          if node bin/yaohao.js calendar --city tianjin 2>&1 | grep -q "未知城市"; then
+            echo "OK: unknown city handled"
+          else
+            echo "FAIL: unknown city not handled"
+            exit 1
+          fi
+
+      - name: Smoke test - stub commands
+        run: |
+          node bin/yaohao.js status | grep -q "v1 不支持"
+          node bin/yaohao.js family | grep -q "v1 不支持"
+          node bin/yaohao.js watch renewal | grep -q "v1 不支持"
