@@ -1,5 +1,11 @@
 # yaohao
 
+[![npm version](https://img.shields.io/npm/v/yaohao.svg)](https://www.npmjs.com/package/yaohao)
+[![npm downloads](https://img.shields.io/npm/dm/yaohao.svg)](https://www.npmjs.com/package/yaohao)
+[![CI](https://github.com/GuangyuZhan/yaohao/actions/workflows/ci.yml/badge.svg)](https://github.com/GuangyuZhan/yaohao/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Node](https://img.shields.io/node/v/yaohao.svg)](https://nodejs.org/)
+
 国内城市车牌摇号 CLI 工具 —— 让人类和 AI Agent 都能在终端做资格自检、查询摇号形势、订阅开奖结果与政策变化。
 
 支持城市：**北京** · **广州** · **深圳** · **杭州**
