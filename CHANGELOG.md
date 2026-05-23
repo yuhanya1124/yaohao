@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — 2026-05-23
+
+### 修复
+
+- `market --city beijing` PDF 解析时的 `standardFontDataUrl` 警告（pdfjs-dist 字体加载）。指定本地字体路径 + 禁用字体形状加载，stderr 现在干净。功能本身未受影响（中签率字段从 1.0.0 起就能正确解析）。
+
 ## 1.0.0 — 2026-05-23
 
 首次发布。
