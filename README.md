@@ -18,7 +18,7 @@
 npm install -g yaohao
 ```
 
-要求 Node.js >= 18。
+要求 Node.js >= 20。
 
 ## 快速开始
 
