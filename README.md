@@ -157,7 +157,6 @@ npx skills add yaohao -g
 
 - [`fichas/cross_beijing_cli`](https://github.com/fichas/cross_beijing_cli) — 进京证 CLI，本项目脚手架来源
 - [`JimmyLiang-lzm/BJJTW_Get`](https://github.com/JimmyLiang-lzm/BJJTW_Get) — 北京交通委接口参考
-- [`sml2h3/ddddocr`](https://github.com/sml2h3/ddddocr) — 验证码识别模型
 
 ## License
 

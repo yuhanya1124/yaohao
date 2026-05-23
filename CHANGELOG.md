@@ -31,4 +31,3 @@ v1 不做的命令（不持有用户密码 = 无合规风险）：
 
 - [`fichas/cross_beijing_cli`](https://github.com/fichas/cross_beijing_cli) — 脚手架来源
 - [`JimmyLiang-lzm/BJJTW_Get`](https://github.com/JimmyLiang-lzm/BJJTW_Get) — 北京接口参考
-- [`sml2h3/ddddocr`](https://github.com/sml2h3/ddddocr) — OCR 模型（未使用，预留）
