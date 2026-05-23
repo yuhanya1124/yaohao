@@ -24,6 +24,7 @@ import { registerWaitlistCommand } from '../src/commands/waitlist.js';
 import { registerNotifyCommand } from '../src/commands/notify.js';
 import { registerSetCommand } from '../src/commands/set.js';
 import { registerCronCommand } from '../src/commands/cron.js';
+import { registerInstallCommand } from '../src/commands/install.js';
 
 // 无登录态（任何人能用）
 registerEligibilityCommand(program);
@@ -43,5 +44,8 @@ registerWaitlistCommand(program);
 registerNotifyCommand(program);
 registerSetCommand(program);
 registerCronCommand(program);
+
+// AI Agent 一键安装
+registerInstallCommand(program);
 
 program.parse();

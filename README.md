@@ -140,6 +140,21 @@ yaohao cron remove
 
 ## AI Agent 接入
 
+### 🎯 一键安装（推荐，v1.2.0+）
+
+```bash
+npm install -g yaohao
+yaohao install
+```
+
+自动检测系统中已安装的 AI Agent 客户端（Claude Code / Claude Desktop / Cursor / Continue / OpenClaw / Hermes Agent），**非破坏性合并**写入 MCP server 配置。重启对应客户端后，对话里直接问"北京摇号窗口期还有几天"即可。
+
+`yaohao install --dry-run` 可以先预览不实际写。
+
+---
+
+### 手动配置
+
 v1.1.0 起内置 **MCP server**（Model Context Protocol），任何支持 MCP 的客户端**都能自动识别 yaohao 的 5 个能力**：
 
 ```

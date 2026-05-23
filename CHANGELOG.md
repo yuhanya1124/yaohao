@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.2.0 — 2026-05-23
+
+### 新增
+
+- **`yaohao install` 命令** — 一键检测系统中已安装的 AI Agent 客户端（Claude Code / Claude Desktop / Cursor / Continue / OpenClaw / Hermes Agent），**非破坏性合并**写入 MCP server 配置。
+- 已自动支持的 JSON 配置：Claude Code、Claude Desktop、Cursor、Continue
+- YAML 配置（OpenClaw / Hermes Agent）：检测到客户端后提示用户手动添加 + 给完整 snippet
+- 支持 `--dry-run` 预览不写文件
+- 支持 `--json` 结构化输出
+
+### 用法
+
+```bash
+yaohao install            # 自动检测 + 安装
+yaohao install --dry-run  # 预览（不实际改文件）
+```
+
+之后在 AI 客户端对话里直接问"北京摇号窗口期还有几天"等，AI 自动调用 yaohao。
+
 ## 1.1.0 — 2026-05-23
 
 ### 新增

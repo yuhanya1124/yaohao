@@ -1,6 +1,6 @@
 {
   "name": "yaohao",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "国内城市车牌摇号 CLI（北京 / 广州 / 深圳 / 杭州）- 资格自检、关键日历、形势播报、开奖订阅、政策提醒。AI Agent 友好。",
   "type": "module",
   "bin": {
