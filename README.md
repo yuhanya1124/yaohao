@@ -138,13 +138,92 @@ yaohao cron remove
 
 存储在 `~/.yaohao/config.json`，`yaohao init` 自动创建。缓存在 `~/.yaohao/cache/`。
 
-## AI Agent
+## AI Agent 接入
 
-Skill 文件位于 `skills/yaohao/SKILL.md`，触发关键词包括：摇号、指标、申请编码、家庭摇号、新能源指标、阶梯、中签、北京/广州/深圳/杭州买车等。
+v1.1.0 起内置 **MCP server**（Model Context Protocol），任何支持 MCP 的客户端**都能自动识别 yaohao 的 5 个能力**：
+
+```
+yaohao_calendar       查询关键日历
+yaohao_market         查询当前形势 / 中签率
+yaohao_eligibility    查询资格规则
+yaohao_watch          查询最新公告
+yaohao_list_cities    列支持的城市
+```
+
+### Claude Code
+
+在你的项目根目录或全局 MCP 配置加：
 
 ```bash
-npx skills add yaohao -g
+claude mcp add yaohao --command "npx" --args "-y" "yaohao-mcp"
 ```
+
+或者编辑 `~/.claude/mcp.json`：
+
+```json
+{
+  "mcpServers": {
+    "yaohao": { "command": "npx", "args": ["-y", "yaohao-mcp"] }
+  }
+}
+```
+
+### Claude Desktop
+
+编辑 `~/Library/Application Support/Claude/claude_desktop_config.json`（macOS）或 `%APPDATA%\Claude\claude_desktop_config.json`（Windows）：
+
+```json
+{
+  "mcpServers": {
+    "yaohao": { "command": "npx", "args": ["-y", "yaohao-mcp"] }
+  }
+}
+```
+
+### Cursor
+
+编辑 `~/.cursor/mcp.json`（或项目下 `.cursor/mcp.json`）：
+
+```json
+{
+  "mcpServers": {
+    "yaohao": { "command": "npx", "args": ["-y", "yaohao-mcp"] }
+  }
+}
+```
+
+### OpenClaw
+
+编辑 `~/.openclaw/config.yaml` 或 `openclaw.json`：
+
+```yaml
+mcp:
+  servers:
+    yaohao:
+      command: npx
+      args: ["-y", "yaohao-mcp"]
+```
+
+### Hermes Agent
+
+编辑 `~/.hermes/config.yaml`：
+
+```yaml
+mcp_servers:
+  yaohao:
+    command: npx
+    args: ["-y", "yaohao-mcp"]
+```
+
+### Codex CLI / Cline / Continue / 其他 MCP 客户端
+
+任何符合 MCP 标准的客户端配置同上：
+
+```json
+{ "command": "npx", "args": ["-y", "yaohao-mcp"] }
+```
+
+配置完之后，**在对话里直接问"北京摇号窗口期还有几天"或"深圳本期中签率多少"，AI 会自动调用 yaohao 工具**。
 
 ## 边界
 

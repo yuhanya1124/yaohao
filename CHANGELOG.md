@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.1.0 — 2026-05-23
+
+### 新增
+
+- **MCP server** — `yaohao-mcp` 命令，让任何支持 Model Context Protocol 的客户端（Claude Code / Claude Desktop / Cursor / Codex CLI / OpenClaw / Hermes Agent / Cline / Continue 等）一次配置即可自动识别 yaohao 的能力，无需写命令。
+- 5 个 MCP tools：`yaohao_calendar` / `yaohao_market` / `yaohao_eligibility` / `yaohao_watch` / `yaohao_list_cities`
+- README 加 6 种主流 AI Agent 的接入配置示例
+
+### 用法
+
+```json
+// ~/.claude/mcp.json 或对应客户端的 MCP 配置
+{
+  "mcpServers": {
+    "yaohao": { "command": "npx", "args": ["-y", "yaohao-mcp"] }
+  }
+}
+```
+
+之后在对话里直接问 "北京摇号窗口期还有几天"、"深圳本期中签率多少"，AI 会自动调用 yaohao。
+
 ## 1.0.2 — 2026-05-23
 
 ### 变更
