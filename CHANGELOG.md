@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2 — 2026-05-23
+
+### 变更
+
+- 仓库迁移到 https://github.com/yuhanya1124/yaohao（GitHub 用户名更新）。同步更新 `package.json` 的 `repository` / `homepage` / `bugs` 字段和 README badges。
+- 旧 URL 通过 GitHub 301 重定向仍可访问，但建议使用新地址。
+
 ## 1.0.1 — 2026-05-23
 
 ### 修复

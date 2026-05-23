@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/yaohao.svg)](https://www.npmjs.com/package/yaohao)
 [![npm downloads](https://img.shields.io/npm/dm/yaohao.svg)](https://www.npmjs.com/package/yaohao)
-[![CI](https://github.com/GuangyuZhan/yaohao/actions/workflows/ci.yml/badge.svg)](https://github.com/GuangyuZhan/yaohao/actions/workflows/ci.yml)
+[![CI](https://github.com/yuhanya1124/yaohao/actions/workflows/ci.yml/badge.svg)](https://github.com/yuhanya1124/yaohao/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node](https://img.shields.io/node/v/yaohao.svg)](https://nodejs.org/)
 

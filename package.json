@@ -1,6 +1,6 @@
 {
   "name": "yaohao",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "国内城市车牌摇号 CLI（北京 / 广州 / 深圳 / 杭州）- 资格自检、关键日历、形势播报、开奖订阅、政策提醒。AI Agent 友好。",
   "type": "module",
   "bin": {
@@ -36,13 +36,13 @@
     "agent"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/GuangyuZhan/yaohao#readme",
+  "homepage": "https://github.com/yuhanya1124/yaohao#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GuangyuZhan/yaohao.git"
+    "url": "git+https://github.com/yuhanya1124/yaohao.git"
   },
   "bugs": {
-    "url": "https://github.com/GuangyuZhan/yaohao/issues"
+    "url": "https://github.com/yuhanya1124/yaohao/issues"
   },
   "dependencies": {
     "@inquirer/prompts": "^8.3.2",
